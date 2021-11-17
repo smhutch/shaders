@@ -2,7 +2,7 @@ import { OrbitControls, useHelper, useMatcapTexture } from "@react-three/drei";
 import { Canvas, MeshProps, useFrame, useLoader } from "@react-three/fiber";
 import { useControls } from "leva";
 import { useRef, Suspense } from "react";
-import { Object3D, PointLightHelper } from "three";
+import { Object3D } from "three";
 import * as THREE from "three";
 
 const Draw = () => {
@@ -13,14 +13,19 @@ const Draw = () => {
   const moonMeshRef = useRef<Object3D>();
 
   const earth = useControls("earth", {
-    position: [0, 0, 0],
+    scale: {
+      min: 0.01,
+      max: 0.2,
+      step: 0.01,
+      value: 0.2,
+    },
   });
   const moon = useControls("moon", {
-    position: [2, 1, -2],
+    position: [0.3, 0.1, -0.3],
   });
   const sun = useControls("pointLight", {
     color: "#ffffff",
-    position: [-2, 2, 2],
+    position: [-1, 1, 1],
     intensity: {
       min: 0.1,
       max: 1,
@@ -58,20 +63,15 @@ const Draw = () => {
         position={sun.position}
         castShadow
       />
-      <mesh
-        ref={earthMeshRef}
-        position={earth.position}
-        receiveShadow
-        castShadow
-      >
-        <sphereGeometry />
+      <mesh ref={earthMeshRef} receiveShadow castShadow>
+        <sphereGeometry args={[earth.scale, 128, 128]} />
         <meshStandardMaterial map={earthTexture} roughness={1} metalness={0} />
       </mesh>
       <group ref={moonGroupRef}>
         <mesh
           ref={moonMeshRef}
           position={moon.position}
-          scale={[0.1, 0.1, 0.1]}
+          scale={[0.03, 0.03, 0.03]}
           receiveShadow
           castShadow
         >
@@ -85,11 +85,11 @@ const Draw = () => {
   );
 };
 
-const Base: React.FC = () => {
+const Scene: React.FC = () => {
   return (
     <Canvas
       camera={{
-        position: [0, 0, 8],
+        position: [0, 0, 1],
       }}
       shadows={{
         enabled: true,
@@ -100,11 +100,11 @@ const Base: React.FC = () => {
       }}
     >
       {/* <gridHelper /> */}
-      <Suspense fallback="lads">
+      <Suspense fallback={null}>
         <Draw />
       </Suspense>
     </Canvas>
   );
 };
 
-export default Base;
+export default Scene;

@@ -3,6 +3,19 @@ body {
   margin: 0 auto;
 }
 
+* {
+  margin: 0;
+}
+
 canvas {
   height: 100vh;
+}
+
+main {
+  margin: 2rem;
+  font-family: monospace;
+}
+
+ul {
+  padding: 0;
 }
