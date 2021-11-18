@@ -146,17 +146,11 @@ const Draw = () => {
 
             self.normalMap.wrapS = THREE.RepeatWrapping;
             self.normalMap.wrapT = THREE.RepeatWrapping;
-            self.normalMap.repeat.set(
-              torus.textureRepeatX,
-              torus.textureRepeatY
-            );
+            self.normalMap.repeat.copy(self.map.repeat);
 
             self.displacementMap.wrapS = THREE.RepeatWrapping;
             self.displacementMap.wrapT = THREE.RepeatWrapping;
-            self.displacementMap.repeat.set(
-              torus.textureRepeatX,
-              torus.textureRepeatY
-            );
+            self.displacementMap.repeat.copy(self.map.repeat);
           }}
         />
       </mesh>
