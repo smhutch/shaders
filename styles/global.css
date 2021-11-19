@@ -19,3 +19,8 @@ main {
 ul {
   padding: 0;
 }
+
+li {
+  margin-bottom: 1rem;
+  list-style: none;
+}
